@@ -38,9 +38,9 @@ plotlist[-1].start()
 plt.show()
 
 
-tak jak powyzej dziala tylko jako debug w vscode
+##tak jak powyzej dziala tylko jako debug w vscode
 
-tak jak ponizej nie dziala w ogole
+##tak jak ponizej nie dziala w ogole
 
 class Plotwindow():
     def __init__(self,frame,title,path):
