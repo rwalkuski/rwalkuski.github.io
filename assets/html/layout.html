@@ -1,0 +1,41 @@
+<template id="site-header">
+  <header class="site-header">
+    <a class="brand" href="./" data-i18n="brand">RWalkuski</a>
+
+    <div class="header-right">
+      <a class="lang-switch" href="#" rel="alternate" data-i18n="langSwitch">PL</a>
+
+      <label class="theme-label">
+        <span data-i18n="themeLabel">Motyw:</span>
+        <select class="theme-select"
+                aria-label="Wybór motywu"
+                data-i18n-attr="aria-label:themeSelectAria">
+          <option value="auto" data-i18n="themeAuto">Auto</option>
+          <option value="light" data-i18n="themeLight">Jasny</option>
+          <option value="dark" data-i18n="themeDark">Ciemny</option>
+        </select>
+      </label>
+
+      <button class="nav-toggle"
+              type="button"
+              aria-label="Otwórz menu"
+              data-i18n-attr="aria-label:menuToggleAria"
+              aria-controls="site-nav"
+              aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+
+    <nav id="site-nav"
+         class="site-nav"
+         aria-label="Główna nawigacja"
+         data-i18n-attr="aria-label:mainNavAria">
+    </nav>
+  </header>
+</template>
+
+<template id="site-footer">
+  <footer class="site-footer">
+    <small>© 2026</small>
+  </footer>
+</template>

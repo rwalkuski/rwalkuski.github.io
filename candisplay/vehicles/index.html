@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAN Display</title>
+  <base href="../../">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script defer src="/assets/js/nav-manifest.en.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <main class="container">
+
+    <div id="section-tabs-slot"></div>
+    
+    <h1>CAN display is available for:</h1>
+    <section class="veh-list">
+        <div class="veh-search">
+          <label class="veh-search-label" for="veh-q">Search for vehicle</label>
+          <input id="veh-q" class="veh-search-input" type="search" placeholder="e.g. E60, BMW">
+        </div>
+        <div id="veh-items"></div>
+    </section>
+        <dialog class="lightbox" id="lightbox" tabindex="-1">
+  <form class="lightbox-inner">
+    <button class="lightbox-close" aria-label="Zamknij" type="button">…</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" alt="">
+      <iframe class="lightbox-vid" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <figcaption class="lightbox-cap"></figcaption>
+    </figure>
+  </form>
+</dialog>
+  </main>
+
+  <div id="footer-slot"></div>
+</body>
+</html>

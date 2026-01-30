@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact</title>
+  <base href="../">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script defer src="/assets/js/nav-manifest.en.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <div id="section-tabs-slot"></div>
+
+  <main class="container">
+    <h1>Contact</h1>
+    <form class="contact-form" action="https://formspree.io/f/mwvvprbb" method="POST">
+  <label>
+    Your email
+    <input name="email" type="email" required>
+  </label>
+
+  <label>
+    Message
+    <textarea name="message" rows="6" required></textarea>
+  </label>
+
+  <input type="hidden" name="_subject" value="Message from RWalkuski.github.io">
+
+  <button type="submit">Send</button>
+</form>
+<p class="form-status" id="contact-status" aria-live="polite"></p>
+  </main>
+
+  <div id="footer-slot"></div>
+</body>
+</html>

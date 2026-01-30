@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAN Display</title>
+  <base href="../">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script defer src="/assets/js/nav-manifest.pl.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <main class="container">
+
+    <div id="section-tabs-slot"></div>
+
+<h1>CAN Display</h1>
+
+<p>
+  CAN Display to dodatkowy moduł który odczyta informacje z magistrali CAN bus auta i wyświetli je an dodatkowym wyświetlaczu<br>
+  Podłączenie jest banalnie proste: podłącz cztery przewody (<strong>+12V, GND, CANH, CANL</strong>).
+</p>
+
+<p>Obsługiwane pojazdy: sprawdź sekcję <strong>Samochody</strong></p>
+
+<p>
+  Pobór prądu:<br>
+  Uśpienie: <strong>~2 mA</strong><br>
+  Praca: <strong>do ~40 mA</strong>
+</p>
+
+<p>Przykłady odczytywanych wartości (w zależności od pojazdu):</p>
+<ul>
+  <li>Temperatura cieczy chłodzącej</li>
+  <li>Temperatura oleju silnikowego</li>
+  <li>Temperatura oleju przekładniowego</li>
+  <li>Ciśnienie doładowania</li>
+  <li>Moment obrotowy</li>
+  <li>Przełożenie automatycznej skrzyni biegów</li>
+  <li>Napięcie akumulatora</li>
+</ul>
+
+<p>Sprawdź sekcję <strong>Samochody</strong> w celu sprawdzenia dokładnej listy dostępnych parametrów.</p>
+
+    <section class="gallery">
+      <h2>Gallery</h2>
+
+      <div class="gallery-grid">
+        <figure class="g-item">
+        <button class="gallery-thumb" type="button"
+            data-full="/assets/images/candisplay/front.png"
+            data-alt="Front">
+          <img src="/assets/images/candisplay/front.png" alt="Front">
+        </button>
+        <!----<figcaption class="g-cap">Front</figcaption>---->
+        </figure>
+
+        <figure class="g-item">
+        <button class="gallery-thumb" type="button"
+            data-full="/assets/images/candisplay/back.png"
+            data-alt="Tył">
+          <img src="/assets/images/candisplay/back.png" alt="Tył">
+        </button>
+        <!----<figcaption class="g-cap">Back</figcaption>---->
+        </figure>
+
+        <figure class="g-item">
+        <button class="gallery-thumb" type="button"
+            data-full="/assets/images/candisplay/display.png"
+            data-alt="Wyświetlacz">
+          <img src="/assets/images/candisplay/display.png" alt="Wyświetlacz">
+        </button>
+        <!----<figcaption class="g-cap">Display</figcaption>---->
+        </figure>
+
+        <figure class="g-item">
+          <button class="gallery-thumb" type="button"
+            data-video="https://www.youtube-nocookie.com/embed/phRX7Lwq7uo"
+            data-alt="Demo">
+            <img src="https://img.youtube.com/vi/phRX7Lwq7uo/maxresdefault.jpg" alt="Demo">
+          </button>
+          <!----<figcaption class="g-cap">Demo</figcaption>---->
+        </figure>
+
+        <figure class="g-item">
+          <button class="gallery-thumb" type="button"
+            data-video="https://www.youtube-nocookie.com/embed/aIzjKVt_p1k"
+            data-alt="Demo w aucie">
+            <img src="https://img.youtube.com/vi/aIzjKVt_p1k/maxresdefault.jpg" alt="Demo w aucie">
+          </button>
+          <!----<figcaption class="g-cap">In car demo</figcaption>---->
+        </figure>
+      </div>
+
+      <dialog class="lightbox" id="lightbox" tabindex="-1">
+        <form class="lightbox-inner">
+          <button class="lightbox-close" value="close" aria-label="Zamknij">
+            <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6.4 5l-.9.9L10.6 12l-5.1 6.1.9.9L12 12.9l5.6 6.1.9-.9L13.4 12l5.1-6.1-.9-.9L12 11.1z"/>
+            </svg>
+          </button>
+          <figure class="lightbox-figure">
+            <img class="lightbox-img" alt="">
+            <iframe class="lightbox-vid" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <figcaption class="lightbox-cap"></figcaption>
+          </figure>
+        </form>
+      </dialog>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAN Display</title>
+  <base href="../../">
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script defer src="/assets/js/nav-manifest.pl.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <main class="container">
+  
+  <div id="section-tabs-slot"></div>
+  
+    <h1>Software</h1>
+    <p>Wpisz hasło, aby odblokować dane do pobrania.</p>
+
+    <div class="gate">
+  <div class="gate-row">
+    <div class="gate-field">
+      <div class="gate-label">Hasło:</div>
+      <input id="pw" class="gate-input" type="password" autocomplete="current-password" />
+    </div>
+
+    <button id="unlock" class="gate-btn" type="button">Odblokuj</button>
+  </div>
+
+  <p id="status" class="gate-status" aria-live="polite"></p>
+
+  <div id="secret" class="gate-secret" style="display:none;">
+    <p><strong>Hasło do archiwum:</strong> <code id="zipPass"></code></p>
+    <p><a id="dl" href="#">Pobierz</a></p>
+  </div>
+</div>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script>
+    // WSTAWIASZ TU wynik z generatora (sekcja B).
+    // Format: v1:<iter>:<salt_b64>:<iv_b64>:<cipher_b64>
+    const ENCRYPTED_BLOB = "v1:200000:0MUchqbYWEzZBHF/TNnRQw==:+3YInZZUQ+PlnWbp:rYTxCYr1S5sLOnDTkEZNi3TRGVsFFTiij2XVQzklMxMw/XMeNLJYP7ouUkfQuiElyWO/AM0mMsUH3ck34fUXkUwp15Y1R99xQV2feaLyGVqhr7AkMm/kU36VDRu8jPtiqu3c7g+mFdYRZYwtxG8Frgq6SzfJ7tuuGF/skQEB";
+
+    function b64ToU8(b64) {
+      const bin = atob(b64);
+      const u8 = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+      return u8;
+    }
+    function u8ToB64(u8) {
+      let s = "";
+      for (const b of u8) s += String.fromCharCode(b);
+      return btoa(s);
+    }
+
+    async function deriveAesKeyFromPassword(password, saltU8, iterations) {
+      const enc = new TextEncoder();
+      const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        enc.encode(password),
+        "PBKDF2",
+        false,
+        ["deriveKey"]
+      ); // importKey + PBKDF2 [web:671]
+
+      return crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: saltU8, iterations, hash: "SHA-256" },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["decrypt"]
+      ); // deriveKey PBKDF2->AES-GCM [web:664]
+    }
+
+    async function decryptBlob(password, blob) {
+      const parts = blob.split(":");
+      if (parts.length !== 5 || parts[0] !== "v1") throw new Error("Bad blob format");
+
+      const iterations = parseInt(parts[1], 10);
+      const salt = b64ToU8(parts[2]);
+      const iv = b64ToU8(parts[3]);
+      const cipher = b64ToU8(parts[4]);
+
+      const key = await deriveAesKeyFromPassword(password, salt, iterations);
+
+      const plainBuf = await crypto.subtle.decrypt(
+        { name: "AES-GCM", iv },
+        key,
+        cipher
+      ); // AES-GCM decrypt [web:650]
+
+      const json = new TextDecoder().decode(plainBuf);
+      return JSON.parse(json);
+    }
+
+    document.getElementById("unlock").addEventListener("click", async () => {
+      const status = document.getElementById("status");
+      const secret = document.getElementById("secret");
+      secret.style.display = "none";
+      status.textContent = "";
+
+      const pw = document.getElementById("pw").value;
+
+      try {
+        const data = await decryptBlob(pw, ENCRYPTED_BLOB);
+        document.getElementById("zipPass").textContent = data.zipPassword;
+        const dl = document.getElementById("dl");
+        dl.href = data.downloadHref;
+        dl.textContent = data.downloadLabel ?? "Pobierz plik";
+        secret.style.display = "block";
+        status.textContent = "OK.";
+      } catch (e) {
+        status.textContent = "Złe hasło (albo błąd odszyfrowania).";
+      }
+    });
+  </script>
+</body>
+</html>
